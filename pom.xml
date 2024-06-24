@@ -10,7 +10,7 @@
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <checkstyle.version>10.12.3</checkstyle.version> <!-- 最新のCheckstyleバージョンを指定 -->
+    <checkstyle.version>10.12.1</checkstyle.version> <!-- 最新のCheckstyleバージョンを指定 -->
   </properties>
 
   <dependencies>
@@ -47,7 +47,7 @@
                   <pluginExecutionFilter>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <versionRange>[10.3.4,)</versionRange> <!-- 最新のバージョンに変更 -->
+                    <versionRange>[10.12.1,)</versionRange> <!-- 最新のバージョンに変更 -->
                     <goals>
                       <goal>check</goal>
                     </goals>
