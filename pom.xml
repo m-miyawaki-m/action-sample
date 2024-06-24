@@ -10,7 +10,6 @@
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <checkstyle.version>10.17.0</checkstyle.version> <!-- 最新のバージョンに変更 -->
   </properties>
 
   <dependencies>
@@ -31,11 +30,6 @@
         <version>5.7.1</version>
         <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.puppycrawl.tools</groupId>
-      <artifactId>checkstyle</artifactId>
-      <version>10.17.0</version>
-  </dependency>
   </dependencies>
 
   <build>
@@ -49,17 +43,6 @@
             <lifecycleMappingMetadata>
               <pluginExecutions>
                 <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <versionRange>[10.17.0,)</versionRange> <!-- 最新のバージョンに変更 -->
-                    <goals>
-                      <goal>check</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
                 </pluginExecution>
               </pluginExecutions>
             </lifecycleMappingMetadata>
@@ -78,26 +61,6 @@
           <target>${maven.compiler.target}</target>
           <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${checkstyle.version}</version> <!-- プロパティを使用してバージョンを指定 -->
-        <configuration>
-          <configLocation>checkstyle.xml</configLocation>
-          <encoding>${project.build.sourceEncoding}</encoding>
-          <consoleOutput>true</consoleOutput>
-          <failsOnError>false</failsOnError>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>validate</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>

@@ -31,14 +31,5 @@ jobs:                                  # ジョブの定義
       - name: Install dependencies     # 依存関係のインストール
         run: mvn install -DskipTests
 
-      - name: Run Checkstyle           # Checkstyleの実行
-        uses: dbelyaev/action-checkstyle@v1.14.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review
-          checkstyle_config: google_checks.xml # または sun_checks.xml もしくはカスタム設定ファイル
-          checkstyle_version: '10.17.0' # 指定するCheckstyleのバージョン
-        continue-on-error: true          # エラーが発生しても次のステップに進む
-
       - name: Run tests                # テストの実行
         run: mvn test
