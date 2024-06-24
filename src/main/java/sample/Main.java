@@ -1,10 +1,12 @@
 package sample;
 
+import service.JsonToDtoExample;
+
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO 自動生成されたメソッド・スタブ
-		System.out.println("Github-Actions-Sample");
+		JsonToDtoExample jsonToDtoExample = new JsonToDtoExample();
+		jsonToDtoExample.readJson();
 	}
 
 }

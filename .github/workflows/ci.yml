@@ -1,0 +1,33 @@
+name: CI Pipeline                      # ワークフロー名
+on: 
+  push:                                # イベント（プッシュ時に起動）
+    branches: [ master ]                 # mainブランチへのプッシュ時
+  pull_request:                        # プルリクエスト時にも実行
+    branches: [ master ]
+
+jobs:                                  # ジョブの定義
+  build:                               # ジョブID
+    runs-on: ubuntu-latest             # ランナー（Ubuntuで実行）
+
+    steps:                             # ステップの定義
+      - name: Checkout code            # リポジトリのチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 11            # JDK 11のセットアップ
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+
+      - name: Cache Maven packages     # Mavenのキャッシュ
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Install dependencies     # 依存関係のインストール
+        run: mvn install -DskipTests
+
+      - name: Run tests                # テストの実行
+        run: mvn test
