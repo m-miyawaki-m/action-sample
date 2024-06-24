@@ -5,6 +5,11 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>github-action-sample</name>
 
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source> <!-- ここでソースバージョンを設定 -->
+    <maven.compiler.target>11</maven.compiler.target> <!-- ここでターゲットバージョンを設定 -->
+  </properties>
+
   <dependencies>
     <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
@@ -23,6 +28,20 @@
         <version>5.7.1</version>
         <scope>test</scope>
     </dependency>
-</dependencies>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version> <!-- プラグインバージョンを最新に設定 -->
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
