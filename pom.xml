@@ -6,10 +6,10 @@
   <name>github-action-sample</name>
 
   <properties>
-    <maven.compiler.source>11</maven.compiler.source> <!-- ここでソースバージョンを設定 -->
-    <maven.compiler.target>11</maven.compiler.target> <!-- ここでターゲットバージョンを設定 -->
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- エンコーディングを設定 -->
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> <!-- レポートのエンコーディングを設定 -->
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
 
   <dependencies>
@@ -66,23 +66,23 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version> <!-- プラグインバージョンを最新に設定 -->
+        <version>3.8.1</version>
         <configuration>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
-          <encoding>${project.build.sourceEncoding}</encoding> <!-- エンコーディングを設定 -->
+          <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
 
-      <plugin> <!-- Checkstyleプラグインの追加 -->
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.1.2</version> <!-- 最新のバージョンに更新 -->
+        <version>3.1.2</version>
         <configuration>
           <configLocation>checkstyle.xml</configLocation>
           <encoding>${project.build.sourceEncoding}</encoding>
           <consoleOutput>true</consoleOutput>
-          <failsOnError>false</failsOnError> <!-- エラーでもビルドを失敗させない -->
+          <failsOnError>false</failsOnError>
         </configuration>
         <executions>
           <execution>
