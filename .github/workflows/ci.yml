@@ -1,13 +1,14 @@
 name: CI Pipeline                      # ワークフロー名
 on: 
   push:                                # イベント（プッシュ時に起動）
-    branches: [ master ]                 # mainブランチへのプッシュ時
+    branches: [ master ]               # masterブランチへのプッシュ時
   pull_request:                        # プルリクエスト時にも実行
     branches: [ master ]
 
 jobs:                                  # ジョブの定義
   build:                               # ジョブID
     runs-on: ubuntu-latest             # ランナー（Ubuntuで実行）
+    timeout-minutes: 3                # タイムアウト設定（3分）
 
     steps:                             # ステップの定義
       - name: Checkout code            # リポジトリのチェックアウト
@@ -17,7 +18,7 @@ jobs:                                  # ジョブの定義
         uses: actions/setup-java@v3
         with:
           java-version: '11'
-          distribution: 'oracle'       # 追加: Javaディストリビューションの指定
+          distribution: 'temurin'       # Javaディストリビューションの指定
 
       - name: Cache Maven packages     # Mavenのキャッシュ
         uses: actions/cache@v3
