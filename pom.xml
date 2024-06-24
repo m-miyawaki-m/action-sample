@@ -8,6 +8,8 @@
   <properties>
     <maven.compiler.source>11</maven.compiler.source> <!-- ここでソースバージョンを設定 -->
     <maven.compiler.target>11</maven.compiler.target> <!-- ここでターゲットバージョンを設定 -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- エンコーディングを設定 -->
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> <!-- レポートのエンコーディングを設定 -->
   </properties>
 
   <dependencies>
@@ -39,9 +41,9 @@
         <configuration>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
+          <encoding>${project.build.sourceEncoding}</encoding> <!-- エンコーディングを設定 -->
         </configuration>
       </plugin>
     </plugins>
   </build>
-
 </project>
