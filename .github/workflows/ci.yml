@@ -8,7 +8,7 @@ on:
 jobs:                                  # ジョブの定義
   build:                               # ジョブID
     runs-on: ubuntu-latest             # ランナー（Ubuntuで実行）
-    timeout-minutes: 3                # タイムアウト設定（3分）
+    timeout-minutes: 30                # タイムアウト設定（30分）
 
     steps:                             # ステップの定義
       - name: Checkout code            # リポジトリのチェックアウト
@@ -30,6 +30,9 @@ jobs:                                  # ジョブの定義
 
       - name: Install dependencies     # 依存関係のインストール
         run: mvn install -DskipTests
+
+      - name: Run Checkstyle           # Checkstyleの実行
+        run: mvn checkstyle:check
 
       - name: Run tests                # テストの実行
         run: mvn test
