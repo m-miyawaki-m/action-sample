@@ -8,7 +8,7 @@ on:
 jobs:                                  # ジョブの定義
   build:                               # ジョブID
     runs-on: ubuntu-latest             # ランナー（Ubuntuで実行）
-    timeout-minutes: 3                # タイムアウト設定（3分）
+    timeout-minutes: 3                 # タイムアウト設定（3分）
 
     steps:                             # ステップの定義
       - name: Checkout code            # リポジトリのチェックアウト
@@ -32,8 +32,13 @@ jobs:                                  # ジョブの定義
         run: mvn install -DskipTests
 
       - name: Run Checkstyle           # Checkstyleの実行
-        run: mvn checkstyle:check
-        continue-on-error: true        # エラーが発生しても次のステップに進む
+        uses: dbelyaev/action-checkstyle@v1.14.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          checkstyle_config: google_checks.xml # または sun_checks.xml もしくはカスタム設定ファイル
+          checkstyle_version: '10.12.6' # 指定するCheckstyleのバージョン
+        continue-on-error: true          # エラーが発生しても次のステップに進む
 
       - name: Run tests                # テストの実行
         run: mvn test
