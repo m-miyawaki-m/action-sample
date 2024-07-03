@@ -499,3 +499,101 @@ myGrid.render(document.getElementById('myGrid'));
   - グローバルスコープに依存するため競合のリスクあり
 
 したがって、クラスの拡張を行いやすいのはES6モジュール版です。
+
+
+拡張クラスで`customradio`のフィールドタイプを追加する場合、まず元の`w2form`クラスを継承し、新しいメソッドを追加または既存のメソッドをオーバーライドします。
+
+以下に、`w2form`クラスを拡張して`setFieldValue`メソッドに`customradio`フィールドタイプを追加する例を示します。
+
+### 元の`w2form`クラス（簡略版）
+
+```javascript
+class w2form extends w2base {
+    constructor(options) {
+        super(options.name)
+        this.name         = null
+        this.header       = ''
+        this.box          = null // HTML element that hold this element
+        this.url          = ''
+        this.method       = null // if defined, it will be http method when saving
+        this.routeData    = {} // data for dynamic routes
+        this.formURL      = '' // url where to get form HTML
+        this.formHTML     = '' // form HTML (might be loaded from the url)
+        this.page         = 0 // current page
+        this.pageStyle    = ''
+        this.recid        = null // if not null, then load record
+        this.fields       = []
+        this.actions      = {}
+        this.record       = {}
+    }
+
+    setFieldValue(name, value) {
+        let field = this.get(name)
+        if (field == null) return
+        let el = field.el
+        switch (field.type) {
+            // 既存のケース
+            default:
+                el.value = value ?? ''
+                break
+        }
+    }
+}
+```
+
+### 拡張クラスでの実装
+
+```javascript
+class CustomForm extends w2form {
+    constructor(options) {
+        super(options)
+    }
+
+    setFieldValue(name, value) {
+        let field = this.get(name)
+        if (field == null) return
+        let el = field.el
+        switch (field.type) {
+            case 'customradio': {
+                // customradio の処理
+                let selectedValue = value?.id ?? value
+                let inputs = query(el).closest('div').find('input')
+                let items  = field.options.items
+                items.forEach((it, ind) => {
+                    if (it.id === selectedValue) {
+                        inputs.filter(`[data-index="${ind}"]`).prop('checked', true)
+                    }
+                })
+                break
+            }
+            default:
+                super.setFieldValue(name, value)  // 親クラスのメソッドを呼び出す
+                break
+        }
+    }
+}
+
+// 使用例
+const customForm = new CustomForm({
+    name: 'myCustomForm',
+    // 他のオプション
+});
+
+// フィールドの値を設定
+customForm.setFieldValue('fieldName', { id: 'value' });
+```
+
+### 追加された部分の解説
+
+1. **クラスの拡張**:
+   - `class CustomForm extends w2form`で`w2form`クラスを継承します。
+   - `constructor`内で`super(options)`を呼び出して親クラスのコンストラクタを実行します。
+
+2. **メソッドのオーバーライド**:
+   - `setFieldValue`メソッドをオーバーライドし、`customradio`フィールドタイプのケースを追加します。
+   - `customradio`の処理では、選択された値に基づいて適切なラジオボタンをチェックします。
+
+3. **親クラスのメソッド呼び出し**:
+   - `default`ケースでは、親クラスの`setFieldValue`メソッドを呼び出して既存の処理を実行します。
+
+これにより、`customradio`フィールドタイプをサポートする拡張クラスを作成できます。
